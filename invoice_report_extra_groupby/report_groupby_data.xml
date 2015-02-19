@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="view_account_invoice_report_tree" model="ir.ui.view">
+      <field name="name">account.invoice.report.tree</field>
+      <field name="model">account.invoice.report</field>
+      <field name="inherit_id" ref="account.view_account_invoice_report_tree" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='price_total']" position="attributes">
+          <attribute name="string">Total in Currency</attribute>
+        </xpath>
+        <xpath expr="//field[@name='price_total']" position="after">
+          <field name="total_in_currency" sum="Total in Currency" />
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_account_invoice_report_search" model="ir.ui.view">
+      <field name="name">account.invoice.report.search</field>
+      <field name="model">account.invoice.report</field>
+      <field name="inherit_id" ref="account.view_account_invoice_report_search" />
+      <field name="arch" type="xml">
+        <xpath expr="//filter[@string='Partner']" position="after">
+          <filter string="Partner Country" name="Country" context="{'group_by': 'partner_country_id'}" />
+        </xpath>
+        <xpath expr="//filter[@string='Salesperson']" position="after">
+          <filter string="Sales Team" name="Country" context="{'group_by': 'section_id'}" />
+        </xpath>
+        <xpath expr="//filter[@string='Account']" position="after">
+          <filter string="Currency" context="{'group_by': 'currency_id'}" />
+          <filter string="Invoice" context="{'group_by': 'invoice_id'}" />
+        </xpath>
+      </field>
+    </record>
+  </data>
+</openerp>
